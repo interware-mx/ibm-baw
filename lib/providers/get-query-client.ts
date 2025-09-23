@@ -1,3 +1,4 @@
+// 📦 Dependencies
 import { QueryClient, isServer } from "@tanstack/react-query";
 
 function makeQueryClient() {

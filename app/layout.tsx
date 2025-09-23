@@ -1,13 +1,19 @@
+// 📦 Dependencies
 import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 
+// 📖 lib
 import Providers from "@/lib/providers/providers";
-import BootstrapClient from "@/components/commons/bootstrap-client";
 
+// 🧩 Components / Containers
+import BootstrapClient from "@/components/commons/bootstrap-client";
+import Header from "@/components/header";
+
+// 🎨 Styles
 import "@interware/foundation/theme.css";
 import "@interware/foundation/gradients.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "./globals.css";
+import "@/styles/globals.css";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -27,6 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={raleway.variable}>
         <Providers>
+          <Header />
           {children}
           <BootstrapClient />
         </Providers>

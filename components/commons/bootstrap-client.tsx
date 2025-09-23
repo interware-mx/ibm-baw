@@ -1,10 +1,11 @@
 "use client";
-
+// 📦 Dependencies
 import { useEffect } from "react";
 
 let isBootstrapLoaded = false;
 
 function BootstrapClient() {
+  // 🔄 useEffects
   useEffect(() => {
     let mounted = true;
 
