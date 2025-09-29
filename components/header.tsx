@@ -21,7 +21,7 @@ export default async function Header() {
           <Link className="navbar-brand ps-3" href="/">
             <Image
               alt="Logo"
-              src="/assets/images/Logo.png"
+              src="/assets/images/logotipo.png"
               width={130}
               height={40}
               priority={true}
