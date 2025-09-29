@@ -16,6 +16,17 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ]
+  },
+  images: {
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "vercel.app.com",
+        port: "",
+        pathname: "/**",
+      },
+    ]
   }
 };
 
