@@ -9,6 +9,7 @@ export async function GET() {
   try {
     const { data } = await GetRequest(
       {
+        baseURL: process.env.SERVICE_API_URL,
         url: "/rest/bpm/wle/v1/processes/search",
         data: {
           userFilter: "BAGR01",
@@ -23,7 +24,6 @@ export async function GET() {
           password: "abc123"
         }
       });
-    console.log("🚀 ~ POST ~ data:", data)
 
     return NextResponse.json({ data });
 

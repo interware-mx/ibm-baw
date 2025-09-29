@@ -1,5 +1,4 @@
 import axios from "axios";
-import https from "node:https";
 
 import type {
   Method,
@@ -37,12 +36,14 @@ api.interceptors.response.use(
 const ClientHttpRequest =
   <D = unknown>(method: Method) =>
     async ({
+      baseURL,
       url,
       data,
       responseType,
       headers,
       auth
     }: {
+      baseURL?: string;
       url: string;
       data?: D;
       responseType?: ResponseType;
@@ -55,13 +56,26 @@ const ClientHttpRequest =
         urlWithSlash = `/${urlWithSlash}`;
       }
 
+      let https
+
+      if (typeof window === "undefined") {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const httpsImport = require("node:https");
+
+        https = httpsImport
+      }
+
       const options: AxiosRequestConfig = {
         method,
         url: urlWithSlash,
-        httpsAgent: new https.Agent({
+        httpsAgent: typeof window === "undefined" ? new https.Agent({
           rejectUnauthorized: false
-        })
+        }) : undefined
       };
+
+      if (baseURL) {
+        options.baseURL = baseURL
+      }
 
       if (responseType) {
         options.responseType = responseType;
