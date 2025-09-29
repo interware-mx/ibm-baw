@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { getSession } from "next-auth/react";
+import https from "node:https";
 
 import type {
   Method,
@@ -7,6 +7,7 @@ import type {
   AxiosHeaderValue,
   AxiosRequestConfig,
   AxiosResponse,
+  AxiosBasicCredentials
 } from "axios";
 
 const api = axios.create({
@@ -14,16 +15,6 @@ const api = axios.create({
   withCredentials: true,
   responseType: "json",
 });
-
-// api.interceptors.request.use(async (req) => {
-//   // Set token Authorization in request header
-//   const session = await getSession();
-
-//   if (session) {
-//     req.headers.Authorization = `Bearer ${session.jwt}`;
-//   }
-//   return req;
-// });
 
 // Do not throw errors on 'bad' server response codes
 api.interceptors.response.use(
@@ -45,52 +36,61 @@ api.interceptors.response.use(
 
 const ClientHttpRequest =
   <D = unknown>(method: Method) =>
-  async ({
-    url,
-    data,
-    responseType,
-    headers,
-  }: {
-    url: string;
-    data?: D;
-    responseType?: ResponseType;
-    headers?: Record<string, AxiosHeaderValue>;
-  }) => {
-    let urlWithSlash = url || "";
+    async ({
+      url,
+      data,
+      responseType,
+      headers,
+      auth
+    }: {
+      url: string;
+      data?: D;
+      responseType?: ResponseType;
+      headers?: Record<string, AxiosHeaderValue>;
+      auth?: AxiosBasicCredentials
+    }) => {
+      let urlWithSlash = url || "";
 
-    if (urlWithSlash[0] !== "/") {
-      urlWithSlash = `/${urlWithSlash}`;
-    }
-
-    const options: AxiosRequestConfig = {
-      method,
-      url: urlWithSlash,
-    };
-
-    if (responseType) {
-      options.responseType = responseType;
-    }
-
-    if (headers) {
-      options.headers = { ...headers };
-    }
-
-    if (data) {
-      if (method === "GET") {
-        options.params = data;
-      } else {
-        options.data = data;
+      if (urlWithSlash[0] !== "/") {
+        urlWithSlash = `/${urlWithSlash}`;
       }
-    }
 
-    const response: AxiosResponse = await api(options);
+      const options: AxiosRequestConfig = {
+        method,
+        url: urlWithSlash,
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false
+        })
+      };
 
-    if (response.status >= 200 && response.status < 300) {
+      if (responseType) {
+        options.responseType = responseType;
+      }
+
+      if (headers) {
+        options.headers = { ...headers };
+      }
+
+      if (auth) {
+        options.auth = auth
+      }
+
+      if (data) {
+        if (method === "GET") {
+          options.params = data;
+        } else {
+          options.data = data;
+        }
+      }
+
+      const response: AxiosResponse = await api(options);
+
+      if (response.status >= 200 && response.status < 300) {
+        return response;
+      }
+
       return response;
-    }
-
-    return response;
-  };
+    };
 
 export const GetRequest = ClientHttpRequest("GET");
 export const PostRequest = ClientHttpRequest("POST");
