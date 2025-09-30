@@ -26,6 +26,7 @@
     "nodemailer": "^6.10.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "short-uuid": "^5.0.0",
     "yup": "^1.7.0"
   },
   "devDependencies": {
