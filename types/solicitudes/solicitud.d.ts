@@ -59,3 +59,41 @@ export interface HeaderFilterProps {
   text: string;
   buttons?: ButtonConfig[];
 }
+
+export interface Overview {
+  Active: number;
+  Total: number;
+  Completed: number;
+  Failed: number;
+  Terminated: number;
+  Did_not_Start: number;
+  Suspended: number;
+}
+
+export interface Process {
+  piid: string;
+  name: string;
+  bpdName: string;
+  snapshotID: string;
+  projectID: string;
+  dueDate: string;
+  atRiskDate: string | null;
+  executionState: string;
+  instanceError: string | null;
+  creationDate: string;
+  lastModificationTime: string;
+  closedDate: string | null;
+  username?: string;
+}
+
+export interface DataContent {
+  overview: Overview;
+  processes: Process[];
+}
+
+export interface Tableprocesses {
+  data: {
+    status: string;
+    data: DataContent;
+  };
+}

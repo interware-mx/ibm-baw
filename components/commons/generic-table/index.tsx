@@ -6,15 +6,23 @@ import { RefObject } from "react";
 // 🔨 Utils
 import { generatePages } from "@/lib/utils";
 
+import LoadingSpinner from "@/components/commons/loading-spinner";
+
 const TableGenerica = ({
   ref,
   table,
   tableData,
+  downloadAction,
+  downloadLabel,
+  downloadLoader,
 }: {
   ref?: RefObject<HTMLDivElement | null>;
   table: Table<unknown>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tableData: any | undefined;
+  downloadAction?: () => void;
+  downloadLoader?: boolean;
+  downloadLabel?: string;
 }) => {
   const { pageIndex } = table.getState().pagination;
 
@@ -98,7 +106,7 @@ const TableGenerica = ({
           </tbody>
         </table>
       </div>
-      {tableData?.pageInfo?.total && (
+      {tableData?.data?.data?.overview?.Total && (
         <div className="row g-3 mx-0 mt-3 d-flex align-items-center">
           <div className="col-6 col-md-4 col-lg-3 col-xl-2 d-flex align-items-center">
             <select
@@ -117,10 +125,11 @@ const TableGenerica = ({
               ))}
             </select>
             <span className="fs-6 fw-semibold mb-0 ms-2">
-              {tableData && tableData?.pageInfo?.total < tablePageSize
-                ? tableData?.pageInfo?.total
+              {tableData &&
+              tableData?.data?.data?.overview?.Total < tablePageSize
+                ? tableData?.data?.data?.overview?.Total
                 : tablePageSize}
-              &nbsp;de {tableData?.pageInfo?.total}
+              &nbsp;de {tableData?.data?.data?.overview?.Total}
             </span>
           </div>
           <div className="col-6 col-md-5 col-lg-6 col-xl-8">
@@ -199,6 +208,25 @@ const TableGenerica = ({
               </ul>
             </nav>
           </div>
+          {downloadAction && downloadLabel && (
+            <div className="col-12 col-md-3 col-xl-2 d-flex justify-content-end">
+              <a
+                className="link-tw-blue-gem text-decoration-none fw-semibold d-flex justify-content-sm-between align-items-sm-center gap-2"
+                data-testid="table-colaborador-download"
+                id="table-download"
+                onClick={downloadAction}
+                role="button"
+              >
+                <i className="bi bi-download fw-semibold" />
+                &nbsp;
+                <LoadingSpinner
+                  label={downloadLabel}
+                  isLoading={downloadLoader ?? false}
+                  textColor="text-tw-blue-gem"
+                />
+              </a>
+            </div>
+          )}
         </div>
       )}
     </>
