@@ -9,6 +9,7 @@ import { Form, formSolicitud } from "@/types/solicitudes/solicitud";
 
 // 🔁 Hooks
 import useSetupFormik from "@/hooks/solicitudes/solicitud/useSetupFormik";
+import { useSubmitSolicitud } from "@/hooks/solicitudes/solicitud/useCreateUpdateProcess";
 
 // 🧷 Custom Types
 interface SolicitudCreateContext {
@@ -35,15 +36,25 @@ export const SolicitudCreateProvider: React.FC<SolicitudCreateProvider> = ({
 }) => {
   // 🔁 Hooks
   const router = useRouter();
+  const { submitSolicitud } = useSubmitSolicitud();
 
-  const handleSubmitSolicitud = ({
+  const handleSubmitSolicitud = async ({
     values,
     setSubmitting,
   }: {
     values: formSolicitud;
     setSubmitting: (isSubmitting: boolean) => void;
   }) => {
-    console.log("🚀 ~ handleSubmitSolicitud ~ values:", values);
+    const onSuccess = () => {
+      cancelAction();
+    };
+    await submitSolicitud({
+      action: "Create",
+      values,
+      onSuccess,
+      setSubmitting,
+    });
+
     setSubmitting(false);
     resetForm();
   };
