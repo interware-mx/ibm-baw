@@ -22,6 +22,7 @@ import Modal from "@/components/commons/modal";
 import FormaSolicitud from "@/components/solicitudes/forma-solicitud";
 import TableUpload from "@/components/solicitudes/forma-solicitud/table-upload";
 import DragDropFileInput from "@/components/commons/drag-drop-file-input";
+import LoadingSpinner from "@/components/commons/loading-spinner";
 
 const initialValues = {
   file: undefined,
@@ -112,9 +113,13 @@ const CrearCont = () => {
             type="button"
             className="btn btn-primary w-100"
             onClick={() => formikVariables.handleSubmit()}
-            disabled={isDisabled}
+            disabled={isDisabled || formikVariables.isSubmitting}
           >
-            Continuar
+            <LoadingSpinner
+              label="Continuar"
+              isLoading={formikVariables.isSubmitting}
+              textColor="text-white"
+            />
           </button>
         </div>
       </div>
