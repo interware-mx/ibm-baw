@@ -3,18 +3,24 @@
 // ───────────────────────────────
 import { NextResponse } from 'next/server';
 
-import { GetRequest } from "@/lib/api/api.client"
+import { PutRequest } from "@/lib/api/api.client"
 
-export async function POST(req: Request) {
+export async function PUT(req: Request) {
   try {
     const body = await req.json();
 
-    const { data } = await GetRequest(
+    const dataParams = Object.assign({}, body)
+
+    delete dataParams.tkiid
+
+    const { data } = await PutRequest(
       {
         baseURL: process.env.SERVICE_API_URL,
-        url: `/rest/bpm/wle/v1/process/${body.piid}`,
+        url: `/rest/bpm/wle/v1/task/${body.tkiid}`,
         data: {
-          parts: "all",
+          action: "finish",
+          params: dataParams,
+          parts: "data"
         },
         auth: {
           username: process.env.SERVICE_API_USERNAME || "",
@@ -25,8 +31,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ data });
 
   } catch (error) {
-    console.error('Error al obtener los datos:', error);
+    console.error('Error al actualizar la tarea:', error);
 
-    return NextResponse.json({ error: 'Error al obtener los datos.' }, { status: 500 });
+    return NextResponse.json({ error: 'Error al actualizar la tarea.' }, { status: 500 });
   }
 }

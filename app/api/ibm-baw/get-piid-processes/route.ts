@@ -12,7 +12,7 @@ export async function GET() {
         baseURL: process.env.SERVICE_API_URL,
         url: "/rest/bpm/wle/v1/processes/search",
         data: {
-          userFilter: "BAGR01",
+          userFilter: process.env.SERVICE_API_USER_FILTER,
           statusFilter: "Active",
           projectFilter: "SM",
           limit: 10,
@@ -20,8 +20,8 @@ export async function GET() {
           startedByMe: true
         },
         auth: {
-          username: "BAGR01",
-          password: "abc123"
+          username: process.env.SERVICE_API_USERNAME || "",
+          password: process.env.SERVICE_API_PASSWORD || ""
         }
       });
 
