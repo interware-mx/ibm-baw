@@ -1,19 +1,42 @@
 "use client";
 
-// 🧩 Components / Containers
-import TableSolicitud from "@/components/solicitudes/table-solicitud";
+// 📦 Dependencies
+import dynamic from "next/dynamic";
 
 // 🌐 Context
-import { FilterSolicitudesProvider } from "@/context/solicitudes/filter-solicitudes-context";
+import { useFilterSolicitudesContext } from "@/context/solicitudes/filter-solicitudes-context";
 
-// 🧾 Types
-import { Tableprocesses } from "@/types/solicitudes/solicitud";
+// 🧩 Components / Containers
+import Header from "@/components/solicitudes/filters-section-header";
+const Table = dynamic(() => import("@/components/commons/generic-table"), {
+  ssr: false,
+});
 
-const Solicitudes = ({ catalog }: { catalog: Tableprocesses | undefined }) => {
+const Solicitudes = () => {
+  // 🌐 Context
+  const {
+    table,
+    tableRef,
+    handleDownload,
+    isLoadingDownload,
+    catalog,
+    isLoading,
+  } = useFilterSolicitudesContext();
+
+  // 🧾 Render
   return (
-    <FilterSolicitudesProvider data={catalog?.data?.data?.processes ?? []}>
-      <TableSolicitud catalog={catalog} />
-    </FilterSolicitudesProvider>
+    <section className="mt-2">
+      <Header />
+      <Table
+        ref={tableRef}
+        table={table}
+        tableData={catalog}
+        isLoading={isLoading}
+        downloadLabel="Descargar"
+        downloadAction={handleDownload}
+        downloadLoader={isLoadingDownload}
+      />
+    </section>
   );
 };
 

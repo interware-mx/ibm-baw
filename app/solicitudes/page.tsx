@@ -1,32 +1,31 @@
 "use client";
 
-// 🧩 Components / Containers
-import SolicitudesCom from "@/containers/solicitudes";
+// 📦 Dependencies
 import { useQuery } from "@tanstack/react-query";
-import { GetRequest } from "@/lib/api/api.client";
+
+// 📖 lib
+import { fetchPiidProcesses } from "@/lib/use-cases/solicitudes/get-piid-processes";
+
+// 🌐 Context
+import { FilterSolicitudesProvider } from "@/context/solicitudes/filter-solicitudes-context";
+
+// 🧾 Types
 import { Tableprocesses } from "@/types/solicitudes/solicitud";
 
-export const fetchUsers = async (): Promise<Tableprocesses> => {
-  const { data } = await GetRequest({
-    url: "/api/ibm-baw/get-piid-processes",
-  });
-  return data;
-};
+// 🧩 Components / Containers
+import SolicitudesCom from "@/containers/solicitudes";
 
 export default function Solicitudes() {
-  const { data, isLoading, isError, error } = useQuery<Tableprocesses>({
+  const { data, isError, isLoading, error } = useQuery<Tableprocesses>({
     queryKey: ["piid-processes"],
-    queryFn: fetchUsers,
+    queryFn: fetchPiidProcesses,
   });
 
-  console.log("🚀 ~ Solicitudes ~ fetchPiidProcesses:", data);
-
-  if (isLoading) return <p>Cargando...</p>;
   if (isError) return <p>Error: {`${error}`}</p>;
 
   return (
-    <section>
-      <SolicitudesCom catalog={data} />
-    </section>
+    <FilterSolicitudesProvider data={data} isLoading={isLoading}>
+      <SolicitudesCom />
+    </FilterSolicitudesProvider>
   );
 }

@@ -23,17 +23,23 @@ import {
 // 🔁 Hooks
 import useTableConfig from "@/hooks/solicitudes/solicitud/useTableSolicitudes";
 
+// 🧾 Types
+import { Tableprocesses } from "@/types/solicitudes/solicitud";
+
 // 🧷 Custom Types
 interface FilterSolicitudesContext {
   table: ReturnType<typeof useReactTable>;
   tableRef: React.RefObject<HTMLDivElement | null>;
   isLoadingDownload?: boolean;
   handleDownload: () => void;
+  catalog: Tableprocesses | undefined;
+  isLoading: boolean;
 }
 
 interface FilterSolicitudesProvider {
-  data: unknown[];
+  data: Tableprocesses | undefined;
   children: ReactNode;
+  isLoading: boolean;
 }
 
 // 🌐 Context
@@ -45,6 +51,7 @@ export const FilterSolicitudesContext = createContext<
 export const FilterSolicitudesProvider: React.FC<FilterSolicitudesProvider> = ({
   data,
   children,
+  isLoading,
 }) => {
   // 🔁 Hooks
   const { columns } = useTableConfig();
@@ -61,7 +68,7 @@ export const FilterSolicitudesProvider: React.FC<FilterSolicitudesProvider> = ({
   // 📊 Setup de la tabla
   const table = useReactTable({
     columns: columns as ColumnDef<unknown>[],
-    data: data ?? [],
+    data: data?.data?.data?.processes ?? [],
     enableRowSelection: true,
     enableSortingRemoval: false,
     getCoreRowModel: getCoreRowModel(),
@@ -138,6 +145,8 @@ export const FilterSolicitudesProvider: React.FC<FilterSolicitudesProvider> = ({
       value={{
         table,
         tableRef,
+        isLoading,
+        catalog: data,
         isLoadingDownload,
         handleDownload,
       }}

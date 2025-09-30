@@ -1,12 +1,14 @@
 // 📦 Dependencies
+import { RefObject } from "react";
 import { flexRender, Table } from "@tanstack/react-table";
 import classNames from "classnames";
-import { RefObject } from "react";
 
 // 🔨 Utils
 import { generatePages } from "@/lib/utils";
 
+// 🧩 Components / Containers
 import LoadingSpinner from "@/components/commons/loading-spinner";
+import TableContentLoader from "@/components/commons/content-loader/table";
 
 const TableGenerica = ({
   ref,
@@ -15,9 +17,11 @@ const TableGenerica = ({
   downloadAction,
   downloadLabel,
   downloadLoader,
+  isLoading,
 }: {
   ref?: RefObject<HTMLDivElement | null>;
   table: Table<unknown>;
+  isLoading: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tableData: any | undefined;
   downloadAction?: () => void;
@@ -31,6 +35,10 @@ const TableGenerica = ({
     (table.getState().pagination.pageIndex + 1);
 
   const pagesWithEllipses = generatePages(pageIndex, table.getPageCount() ?? 0);
+
+  if (isLoading) {
+    return <TableContentLoader style={{ width: "100%", height: "auto" }} />;
+  }
 
   return (
     <>
