@@ -40,7 +40,7 @@ const useTableSolicitudes = () => {
       }),
       columnHelper.accessor("username", {
         id: "username",
-        cell: (info) => info.getValue(),
+        cell: "BGonzalez",
         header: "Usuario",
         size: 100,
       }),
