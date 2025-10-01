@@ -9,6 +9,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
    * Variables de formik
    */
   const { values, handleBlur, handleChange, touched, errors } = formikVariables;
+
   return (
     <>
       <div className="row mt-4">

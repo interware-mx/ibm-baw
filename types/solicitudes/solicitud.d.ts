@@ -5,8 +5,8 @@ import { FormikHandlers, FormikHelpers, FormikState } from "formik";
 
 export interface Form<T>
   extends Pick<FormikState<T>, "values" | "errors" | "touched">,
-    Pick<FormikHandlers, "handleBlur" | "handleChange">,
-    Pick<FormikHelpers<T>, "setFieldValue"> {
+  Pick<FormikHandlers, "handleBlur" | "handleChange">,
+  Pick<FormikHelpers<T>, "setFieldValue"> {
   isUpdate?: boolean;
 }
 
@@ -21,13 +21,10 @@ export type formSolicitud = {
 };
 
 export type UseSetupFormikProps = {
-  submitAction: ({
-    values,
-    setSubmitting,
-  }: {
-    values: formSolicitud;
-    setSubmitting: (isSubmitting: boolean) => void;
-  }) => void;
+  submitAction: (
+    values: formSolicitud,
+    { ...args }: FormikHelpers<formSolicitud>
+  ) => void;
 };
 
 export interface FormikVariables extends Form<formSolicitud> {
