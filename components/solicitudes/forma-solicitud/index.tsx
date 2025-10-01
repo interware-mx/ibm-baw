@@ -4,7 +4,7 @@ import { validationClass } from "@/lib/utils";
 // 🧾 Types
 import { FormaSolicitudProps } from "@/types/solicitudes/solicitud";
 
-const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
+const FormaSolicitud = ({ formikVariables, isUpdate }: FormaSolicitudProps) => {
   /**
    * Variables de formik
    */
@@ -31,6 +31,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values?.idMaterial as string}
+            disabled={isUpdate}
           />
           {touched.idMaterial && errors.idMaterial && (
             <span className="invalid-feedback pt-1">{errors.idMaterial}</span>
@@ -55,6 +56,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.descripcion as string}
+            disabled={isUpdate}
           />
 
           {touched.descripcion && errors.descripcion && (
@@ -83,6 +85,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.tipoMaterial as string}
+            disabled={isUpdate}
           />
 
           {touched.tipoMaterial && errors.tipoMaterial && (
@@ -108,6 +111,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.piezas ?? ""}
+            disabled={isUpdate}
           />
 
           {touched.piezas && errors.piezas && (
@@ -133,6 +137,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.moneda as string}
+            disabled={isUpdate}
           />
 
           {touched.moneda && errors.moneda && (
@@ -158,6 +163,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.precio ?? ""}
+            disabled={isUpdate}
           />
 
           {touched.precio && errors.precio && (
@@ -186,6 +192,7 @@ const FormaSolicitud = ({ formikVariables }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values?.canal as string}
+            disabled={isUpdate}
           />
 
           {touched.canal && errors.canal && (

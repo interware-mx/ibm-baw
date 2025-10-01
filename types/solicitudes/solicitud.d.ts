@@ -21,6 +21,8 @@ export type formSolicitud = {
 };
 
 export type UseSetupFormikProps = {
+  isUpdate?: boolean;
+  initialData: formSolicitud;
   submitAction: ({
     values,
     setSubmitting,
@@ -37,6 +39,7 @@ export interface FormikVariables extends Form<formSolicitud> {
 
 export interface FormaSolicitudProps {
   formikVariables: FormikVariables;
+  isUpdate?: boolean;
 }
 
 export type DocumentosAsociadosProps = {
@@ -96,4 +99,20 @@ export interface Tableprocesses {
     status: string;
     data: DataContent;
   };
+}
+
+export type MaterialProps = {
+  descripcion: string;
+  precio: number | null;
+  piezas: number | null;
+  tipo_material: string;
+  moneda: string;
+  material_cod: string;
+  canal: string;
+  aprobacion?: boolean;
+};
+
+export interface UpdatePiidprocesses {
+  tkiid: string;
+  material: MaterialProps;
 }

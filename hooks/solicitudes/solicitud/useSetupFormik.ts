@@ -13,15 +13,19 @@ import {
   solicitudInitialValues,
 } from "@/containers/solicitudes/formValidation";
 
-const useSetupFormik = ({ submitAction }: UseSetupFormikProps) => {
+const useSetupFormik = ({
+  submitAction,
+  initialData,
+  isUpdate,
+}: UseSetupFormikProps) => {
   /**
    *  setup de formik
    */
   const createUpdateFormik = useFormik({
     enableReinitialize: true,
     validateOnMount: false,
-    initialValues: solicitudInitialValues,
-    validationSchema: solicitudSchema,
+    initialValues: isUpdate ? initialData : solicitudInitialValues,
+    validationSchema: isUpdate ? undefined : solicitudSchema,
     onSubmit: (values: formSolicitud, { setSubmitting }) => {
       submitAction({ values, setSubmitting });
     },

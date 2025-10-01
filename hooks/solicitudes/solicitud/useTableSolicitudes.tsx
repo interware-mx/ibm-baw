@@ -72,7 +72,6 @@ const useTableSolicitudes = () => {
               <button
                 className="btn btn-link text-primary p-0 d-inline-flex align-items-center gap-1"
                 onClick={() => {
-                  console.log("info", info);
                   router.push(`/solicitudes/detalle/${info.row.original.piid}`);
                 }}
               >
