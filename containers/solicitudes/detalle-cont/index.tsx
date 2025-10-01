@@ -22,6 +22,7 @@ import Modal from "@/components/commons/modal";
 import FormaSolicitud from "@/components/solicitudes/forma-solicitud";
 import TableUpload from "@/components/solicitudes/forma-solicitud/table-upload";
 import DragDropFileInput from "@/components/commons/drag-drop-file-input";
+import LoadingSpinner from "@/components/commons/loading-spinner";
 
 const initialValues = {
   file: undefined,
@@ -30,7 +31,8 @@ const initialValues = {
 const DetalleCont = () => {
   // 🔁 Hooks
   const { bulkLoad } = useBulkLoad();
-  const { formikVariables, setAprobacion } = useSolicitudDetalleContext();
+  const { formikVariables, setAprobacion, aprobacion, isDisabled } =
+    useSolicitudDetalleContext();
 
   // 🔘 State
   const [typeBtn, setTypeBtn] = useState("");
@@ -105,7 +107,11 @@ const DetalleCont = () => {
             }}
             disabled={formikVariables.isSubmitting}
           >
-            Rechazar
+            <LoadingSpinner
+              label="Rechazar"
+              isLoading={!aprobacion && formikVariables.isSubmitting}
+              textColor="text-white"
+            />
           </button>
         </div>
         <div className="col-12 col-sm-12 col-md-2">
@@ -116,8 +122,13 @@ const DetalleCont = () => {
               setAprobacion(true);
               formikVariables.handleSubmit();
             }}
+            disabled={formikVariables.isSubmitting}
           >
-            Aprobar
+            <LoadingSpinner
+              label="Aprobar"
+              isLoading={aprobacion && formikVariables.isSubmitting}
+              textColor="text-white"
+            />
           </button>
         </div>
       </div>

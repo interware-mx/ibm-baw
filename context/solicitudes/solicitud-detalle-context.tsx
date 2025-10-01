@@ -31,6 +31,7 @@ interface SolicitudDetalleContext {
   };
   isDisabled: boolean;
   setAprobacion: React.Dispatch<React.SetStateAction<boolean>>;
+  aprobacion: boolean;
 }
 
 interface SolicitudDetalleProvider {
@@ -157,6 +158,7 @@ export const SolicitudDetalleProvider: React.FC<SolicitudDetalleProvider> = ({
         isDisabled: !(isValid && dirty) || isSubmitting,
         cancelAction,
         setAprobacion,
+        aprobacion,
       }}
     >
       {children}
