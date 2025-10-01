@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { createContext, useCallback, useContext } from "react";
 
 // 🧾 Types
+import type { FormikHelpers } from "formik";
 import { Form, formSolicitud } from "@/types/solicitudes/solicitud";
 
 // 🔁 Hooks
@@ -38,13 +39,10 @@ export const SolicitudCreateProvider: React.FC<SolicitudCreateProvider> = ({
   const router = useRouter();
   const { submitSolicitud } = useSubmitSolicitud();
 
-  const handleSubmitSolicitud = async ({
-    values,
-    setSubmitting,
-  }: {
-    values: formSolicitud;
-    setSubmitting: (isSubmitting: boolean) => void;
-  }) => {
+  const handleSubmitSolicitud = async (
+    values: formSolicitud,
+    { setSubmitting }: FormikHelpers<formSolicitud>
+  ) => {
     const onSuccess = () => {
       cancelAction();
     };
@@ -54,10 +52,7 @@ export const SolicitudCreateProvider: React.FC<SolicitudCreateProvider> = ({
       onSuccess,
       setSubmitting,
     });
-
-    setSubmitting(false);
-    resetForm();
-  };
+  }
 
   /**
    * Setup de formik
@@ -71,9 +66,7 @@ export const SolicitudCreateProvider: React.FC<SolicitudCreateProvider> = ({
     handleBlur,
     resetForm,
     setFieldValue,
-    isValid,
     isSubmitting,
-    dirty,
   } = useSetupFormik({
     submitAction: handleSubmitSolicitud,
   });
@@ -96,7 +89,7 @@ export const SolicitudCreateProvider: React.FC<SolicitudCreateProvider> = ({
           setFieldValue,
           isSubmitting,
         },
-        isDisabled: !(isValid && dirty) || isSubmitting,
+        isDisabled: isSubmitting,
         cancelAction,
       }}
     >

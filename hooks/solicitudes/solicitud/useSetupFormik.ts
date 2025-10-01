@@ -2,10 +2,7 @@
 import { useFormik } from "formik";
 
 // 🧾 Types
-import {
-  UseSetupFormikProps,
-  formSolicitud,
-} from "@/types/solicitudes/solicitud";
+import { UseSetupFormikProps } from "@/types/solicitudes/solicitud";
 
 // 🔨 Utils
 import {
@@ -23,12 +20,11 @@ const useSetupFormik = ({
    */
   const createUpdateFormik = useFormik({
     enableReinitialize: true,
-    validateOnMount: false,
-    initialValues: isUpdate ? initialData : solicitudInitialValues,
+    validateOnMount: true,
+    initialValues:
+      isUpdate && initialData ? initialData : solicitudInitialValues,
     validationSchema: isUpdate ? undefined : solicitudSchema,
-    onSubmit: (values: formSolicitud, { setSubmitting }) => {
-      submitAction({ values, setSubmitting });
-    },
+    onSubmit: submitAction,
   });
 
   const {

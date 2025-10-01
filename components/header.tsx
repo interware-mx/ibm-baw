@@ -33,7 +33,7 @@ export default async function Header() {
             <span className="d-flex align-items-center gap-2">
               <i className="bi bi-person-circle fs-3" />
               <span className="d-flex flex-column">
-                <span>Cindy Mulato</span>
+                <span>BGonzalez</span>
                 <small className="text-muted">32 cedis J7h5hf</small>
               </span>
             </span>

@@ -12,6 +12,7 @@ import React, {
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 // 🧾 Types
+import type { FormikHelpers } from "formik";
 import { Form, formSolicitud } from "@/types/solicitudes/solicitud";
 
 // 📖 lib
@@ -94,13 +95,10 @@ export const SolicitudDetalleProvider: React.FC<SolicitudDetalleProvider> = ({
     return detalleInitialValues;
   }, [data?.data?.data?.tasks]);
 
-  const handleSubmitSolicitud = async ({
-    values,
-    setSubmitting,
-  }: {
-    values: formSolicitud;
-    setSubmitting: (isSubmitting: boolean) => void;
-  }) => {
+  const handleSubmitSolicitud = async (
+    values: formSolicitud,
+    { setSubmitting }: FormikHelpers<formSolicitud>,
+  ) => {
     const onSuccess = () => {
       cancelAction();
     };

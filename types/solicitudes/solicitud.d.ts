@@ -22,14 +22,11 @@ export type formSolicitud = {
 
 export type UseSetupFormikProps = {
   isUpdate?: boolean;
-  initialData: formSolicitud;
-  submitAction: ({
-    values,
-    setSubmitting,
-  }: {
-    values: formSolicitud;
-    setSubmitting: (isSubmitting: boolean) => void;
-  }) => void;
+  initialData?: formSolicitud;
+  submitAction: (
+    values: formSolicitud,
+    { ...args }: FormikHelpers<formSolicitud>,
+  ) => void;
 };
 
 export interface FormikVariables extends Form<formSolicitud> {
