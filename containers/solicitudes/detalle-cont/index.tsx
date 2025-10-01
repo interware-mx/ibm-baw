@@ -31,7 +31,7 @@ const initialValues = {
 const DetalleCont = () => {
   // 🔁 Hooks
   const { bulkLoad } = useBulkLoad();
-  const { formikVariables, setAprobacion, aprobacion, isDisabled } =
+  const { formikVariables, setAprobacion, aprobacion } =
     useSolicitudDetalleContext();
 
   // 🔘 State

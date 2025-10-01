@@ -114,7 +114,7 @@ const TableGenerica = ({
           </tbody>
         </table>
       </div>
-      {tableData?.data?.data?.overview?.Total && (
+      {(tableData?.data?.data?.overview?.Total ?? 0) > 0 && (
         <div className="row g-3 mx-0 mt-3 d-flex align-items-center">
           <div className="col-6 col-md-4 col-lg-3 col-xl-2 d-flex align-items-center">
             <select
