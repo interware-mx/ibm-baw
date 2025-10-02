@@ -22,8 +22,8 @@ const useTableSolicitudes = () => {
         header: "Núm. de solicitud",
         size: 800,
       }),
-      columnHelper.accessor("piid", {
-        id: "piid",
+      columnHelper.accessor("bpdName", {
+        id: "bpdName",
         cell: (info) => info.getValue(),
         header: "Código del material",
         size: 100,
