@@ -40,7 +40,7 @@ export const useSubmitSolicitud = () => {
           material: {
             descripcion: values.descripcion,
             precio: values.precio,
-            piezas: values.piezas,
+            piezas: String(values.piezas),
             tipo_material: values.tipoMaterial,
             moneda: values.moneda,
             material_cod: values.idMaterial,

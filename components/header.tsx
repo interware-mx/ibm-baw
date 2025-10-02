@@ -7,23 +7,15 @@ export default async function Header() {
     <header>
       <nav className="navbar bg-white fixed-top position-fixed border-bottom">
         <div className="d-flex align-items-center gap-2 me-auto">
-          <button
-            className="btn btn-primary-outline border-0 p-0"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasSidebar"
-            aria-controls="offcanvasSidebar"
-            aria-expanded="false"
-            joyride-beacon="offcanvas_btn--open"
-          >
+          <button className="btn btn-primary-outline border-0 p-0" type="button">
             <i className={`bi bi-filter-left text-primary fs-1`} />
           </button>
           <Link className="navbar-brand ps-3" href="/">
             <Image
               alt="Logo"
               src="/assets/images/logotipo.png"
-              width={130}
-              height={40}
+              width={204.8}
+              height={54.2}
               priority={true}
             />
           </Link>

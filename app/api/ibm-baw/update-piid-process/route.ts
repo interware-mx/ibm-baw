@@ -9,18 +9,9 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const dataParams = Object.assign({}, body);
-
-    delete dataParams.tkiid;
-
     const { data } = await PutRequest({
       baseURL: process.env.SERVICE_API_URL,
-      url: `/rest/bpm/wle/v1/task/${body.tkiid}`,
-      data: {
-        action: "finish",
-        params: dataParams,
-        parts: "data",
-      },
+      url: `/rest/bpm/wle/v1/task/${body.tkiid}?action=finish&params=${JSON.stringify({ material: body.material })}&parts=data`,
       auth: {
         username: process.env.SERVICE_API_USERNAME || "",
         password: process.env.SERVICE_API_PASSWORD || "",

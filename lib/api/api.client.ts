@@ -90,7 +90,7 @@ const ClientHttpRequest =
       }
 
       if (data) {
-        if (method === "GET" || method === "PUT") {
+        if (method === "GET") {
           options.params = data;
         } else {
           options.data = data;

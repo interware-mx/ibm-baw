@@ -5,8 +5,8 @@ import { FormikHandlers, FormikHelpers, FormikState } from "formik";
 
 export interface Form<T>
   extends Pick<FormikState<T>, "values" | "errors" | "touched">,
-    Pick<FormikHandlers, "handleBlur" | "handleChange">,
-    Pick<FormikHelpers<T>, "setFieldValue"> {
+  Pick<FormikHandlers, "handleBlur" | "handleChange">,
+  Pick<FormikHelpers<T>, "setFieldValue"> {
   isUpdate?: boolean;
 }
 
@@ -101,7 +101,7 @@ export interface Tableprocesses {
 export type MaterialProps = {
   descripcion: string;
   precio: number | null;
-  piezas: number | null;
+  piezas: string | null;
   tipo_material: string;
   moneda: string;
   material_cod: string;

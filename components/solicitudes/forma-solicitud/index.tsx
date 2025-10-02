@@ -57,7 +57,7 @@ const FormaSolicitud = ({ formikVariables, isUpdate }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.descripcion as string}
-            disabled={isUpdate}
+          // disabled={isUpdate}
           />
 
           {touched.descripcion && errors.descripcion && (
@@ -112,7 +112,7 @@ const FormaSolicitud = ({ formikVariables, isUpdate }: FormaSolicitudProps) => {
             onBlur={handleBlur}
             onChange={handleChange}
             value={values.piezas ?? ""}
-            disabled={isUpdate}
+          // disabled={isUpdate}
           />
 
           {touched.piezas && errors.piezas && (
