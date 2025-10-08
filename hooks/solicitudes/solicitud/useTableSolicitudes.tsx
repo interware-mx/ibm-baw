@@ -16,8 +16,8 @@ const useTableSolicitudes = () => {
 
   const columns = useMemo(
     () => [
-      columnHelper.accessor("projectID", {
-        id: "projectID",
+      columnHelper.accessor("piid", {
+        id: "piid",
         cell: (info) => info.getValue(),
         header: "Núm. de solicitud",
         size: 800,
@@ -25,7 +25,7 @@ const useTableSolicitudes = () => {
       columnHelper.accessor("bpdName", {
         id: "bpdName",
         cell: (info) => info.getValue(),
-        header: "Código del material",
+        header: "Tipo de solicitud",
         size: 100,
       }),
       columnHelper.accessor("creationDate", {
